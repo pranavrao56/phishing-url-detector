@@ -1,0 +1,6 @@
+beautifulsoup4==4.12.3
+googlesearch_python==1.2.4
+numpy==1.24.4
+Requests==2.32.3
+streamlit==1.37.0
+whois==0.9.27
