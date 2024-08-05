@@ -7,10 +7,10 @@ model = pickle.load(open('xgboost_model.pkl', 'rb'))
 detector = PhishingURLDetector(model)
 
 # Streamlit app
-st.title("Phish Link Finder")
+st.title("Phishing URL Detector")
 
 st.write('''
-         Detect phishing links using this machine learning application by entering their URL.
+         Detect phishing websites using this machine learning application by entering their URL.
          ''')
 
 # Input URL from the user
