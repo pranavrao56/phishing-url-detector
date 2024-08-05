@@ -7,10 +7,14 @@ model = pickle.load(open('xgboost_model.pkl', 'rb'))
 detector = PhishingURLDetector(model)
 
 # Streamlit app
-st.title("Phishing Website Detector")
+st.title("Phish Link Finder")
+
+st.write('''
+         Detect phishing links using this machine learning application by entering their URL.
+         ''')
 
 # Input URL from the user
-url = st.text_input('Enter the full URL')
+url = st.text_input('URL',placeholder='Enter the full URL',label_visibility="collapsed")
 
 # Predict button
 if st.button('Predict'):
@@ -24,30 +28,6 @@ if st.button('Predict'):
             st.error('The website is **suspicious**.')
     else:
         st.error('Please enter a URL.')
-    
-footer="""<style>
-a:link , a:visited{
-background-color: transparent;
-text-decoration: none;
-}
-
-a:hover,  a:active {
-color: blue;
-background-color: transparent;
-text-decoration: none;
-}
-
-.footer {
-position: fixed;
-left: 0;
-bottom: 0;
-width: 100%;
-text-align: center;
-}
-
-</style>
-<div class="footer">
-<p>Developed by <a href="https://www.github.com/pranavrao56/" target="_blank">Pranav Rao</a></p>
-</div>
-"""
+      
+from footer import footer
 st.markdown(footer,unsafe_allow_html=True)
