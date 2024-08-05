@@ -1,33 +1,31 @@
 import streamlit as st
-import pickle
-from feature_extraction import PhishingURLDetector
+from streamlit_navigation_bar import st_navbar
+import pages as pg
 
-# Loading the model
-model = pickle.load(open('xgboost_model.pkl', 'rb'))
-detector = PhishingURLDetector(model)
+st.set_page_config(initial_sidebar_state="collapsed")
 
-# Streamlit app
-st.title("Phishing URL Detector")
+pages = ['Home','About','Analysis','GitHub']
 
-st.write('''
-         Detect phishing websites using this machine learning application by entering their URL.
-         ''')
+urls = {"GitHub": "https://github.com/pranavrao56/phishing-url-detector"}
 
-# Input URL from the user
-url = st.text_input('URL',placeholder='Enter the full URL',label_visibility="collapsed")
+options = {
+    "show_sidebar": False,
+}
 
-# Predict button
-if st.button('Predict'):
-    if url:
-        input_data = detector.extract_features(url)
-        prediction = model.predict(input_data)
-        
-        if prediction[0] == 1:
-            st.success('The website is **legitimate**.')
-        else:
-            st.error('The website is **suspicious**.')
-    else:
-        st.error('Please enter a URL.')
-      
-from footer import footer
-st.markdown(footer,unsafe_allow_html=True)
+page = st_navbar(
+    pages,
+    urls=urls,
+    options=options,
+)
+
+functions = {
+    "Home": pg.show_app,
+    "About": pg.show_about,
+    "Analysis": pg.show_analysis
+}
+
+go_to = functions.get(page)
+
+if go_to:
+    go_to()
+    
